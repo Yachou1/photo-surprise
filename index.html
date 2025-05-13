@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Dis bonjour !</title>
+  </head>
+  <body>
+    <h1>Dis bonjour à la caméra !</h1>
+    <video id="video" width="320" height="240" autoplay></video>
+    <br>
+    <button id="snap">Prendre la photo</button>
+    <canvas id="canvas" width="320" height="240" style="display:none;"></canvas>
+
+    <script>
+      const video = document.getElementById('video');
+      const canvas = document.getElementById('canvas');
+      const context = canvas.getContext('2d');
+
+      navigator.mediaDevices.getUserMedia({ video: true })
+        .then(stream => {
+          video.srcObject = stream;
+        });
+
+      document.getElementById('snap').addEventListener('click', () => {
+        context.drawImage(video, 0, 0, 320, 240);
+        const dataURL = canvas.toDataURL('image/png');
+        alert("La photo est prise (mais pas encore envoyée)");
+        console.log(dataURL);
+      });
+    </script>
+  </body>
+</html>
