@@ -1,31 +1,76 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>Dis bonjour !</title>
-  </head>
-  <body>
-    <h1>Dis bonjour à la caméra !</h1>
-    <video id="video" width="320" height="240" autoplay></video>
-    <br>
-    <button id="snap">Prendre la photo</button>
-    <canvas id="canvas" width="320" height="240" style="display:none;"></canvas>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Photo surprise</title>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 520px; margin: 3rem auto; padding: 0 1rem; text-align: center; }
+    video, img { width: 100%; border-radius: 12px; }
+    button { padding: .8rem 1.2rem; margin: 1rem; cursor: pointer; }
+    #photo, #send { display: none; }
+  </style>
+</head>
+<body>
+  <h1>Photo surprise</h1>
+  <p>Après ton autorisation, une photo sera prise automatiquement. Elle reste sur ton appareil jusqu'à ce que tu choisisses de l'envoyer.</p>
+  <p id="status" role="status">Demande d'accès à la caméra…</p>
+  <video id="video" autoplay muted playsinline></video>
+  <canvas id="canvas" hidden></canvas>
+  <img id="photo" alt="Aperçu de la photo capturée">
+  <button id="send" type="button">Partager ma photo</button>
+  <script>
+    const video = document.querySelector('#video');
+    const canvas = document.querySelector('#canvas');
+    const photo = document.querySelector('#photo');
+    const send = document.querySelector('#send');
+    const status = document.querySelector('#status');
+    let imageBlob = null;
 
-    <script>
-      const video = document.getElementById('video');
-      const canvas = document.getElementById('canvas');
-      const context = canvas.getContext('2d');
+    async function start() {
+      let stream;
+      try {
+        if (!navigator.mediaDevices?.getUserMedia) throw new Error('Caméra indisponible : utilise HTTPS et un navigateur compatible.');
+        stream = await navigator.mediaDevices.getUserMedia({video: {facingMode: 'user'}, audio: false});
+        video.srcObject = stream;
+        await video.play();
+        if (!video.videoWidth) await new Promise(resolve => video.addEventListener('loadedmetadata', resolve, {once:true}));
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+        canvas.getContext('2d').drawImage(video, 0, 0);
+        imageBlob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
+        if (!imageBlob) throw new Error('Impossible de créer la photo.');
+        photo.src = URL.createObjectURL(imageBlob);
+        photo.style.display = 'block';
+        send.style.display = 'inline-block';
+        status.textContent = 'Photo prise automatiquement. Vérifie-la avant de la partager.';
+      } catch (err) {
+        status.textContent = 'Erreur : ' + err.message;
+      } finally {
+        if (stream) stream.getTracks().forEach(track => track.stop());
+        video.style.display = 'none';
+      }
+    }
 
-      navigator.mediaDevices.getUserMedia({ video: true })
-        .then(stream => {
-          video.srcObject = stream;
-        });
-
-      document.getElementById('snap').addEventListener('click', () => {
-        context.drawImage(video, 0, 0, 320, 240);
-        const dataURL = canvas.toDataURL('image/png');
-        alert("La photo est prise (mais pas encore envoyée)");
-        console.log(dataURL);
-      });
-    </script>
-  </body>
+    send.addEventListener('click', async () => {
+      if (!imageBlob) return;
+      const file = new File([imageBlob], 'photo-surprise.png', {type:'image/png'});
+      try {
+        if (navigator.canShare?.({files:[file]})) {
+          await navigator.share({files:[file], title:'Photo surprise'});
+          status.textContent = 'Partage terminé ou transféré à une application.';
+        } else {
+          const a = document.createElement('a');
+          a.href = photo.src;
+          a.download = file.name;
+          a.click();
+          status.textContent = 'Photo téléchargée. Tu peux maintenant l’envoyer.';
+        }
+      } catch (err) {
+        if (err.name !== 'AbortError') status.textContent = 'Partage impossible : ' + err.message;
+      }
+    });
+    start();
+  </script>
+</body>
 </html>
