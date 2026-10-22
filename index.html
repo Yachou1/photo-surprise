@@ -1,54 +1,43 @@
 <!DOCTYPE html>
-<html lang="fr">
-<head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#101324">
-<title>Le test de ton aura — AuraLab</title>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#0d1117"><title>CodeLab — Playground</title>
 <style>
-:root{font-family:Inter,ui-sans-serif,system-ui,sans-serif;color:#f7f5ff;background:#101324}*{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 20% 0%,#342451 0,transparent 46%),radial-gradient(ellipse at 90% 70%,#193d50 0,transparent 40%),#101324}header{max-width:1050px;margin:auto;padding:26px 24px;display:flex;align-items:center;justify-content:space-between}.logo{font-weight:900;letter-spacing:-.06em;font-size:25px}.logo span{color:#c4a5ff}.pill{font-size:12px;border:1px solid #ffffff30;border-radius:30px;padding:9px 14px;color:#c9c6d8}main{max-width:1050px;margin:auto;padding:65px 24px 100px}.hero{display:grid;grid-template-columns:1.2fr .8fr;gap:44px;align-items:center}.eyebrow{font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:#b9a5f4;font-weight:800}h1{font-size:clamp(42px,7vw,76px);line-height:1.04;letter-spacing:-.07em;margin:20px 0}h1 em{font-style:normal;color:#c4a5ff}p{line-height:1.7;color:#c5c4d5;max-width:540px}button{background:#d7c3ff;border:0;border-radius:15px;padding:17px 23px;font:inherit;font-weight:800;color:#20172d;cursor:pointer;box-shadow:0 12px 35px #b38eff25}button:hover{filter:brightness(1.08)}button:disabled{opacity:.5;cursor:wait}.hint{font-size:13px;margin-top:18px}.art{min-height:370px;position:relative;display:grid;place-items:center;border:1px solid #ffffff1b;border-radius:30px;background:linear-gradient(140deg,#ffffff10,#ffffff04);overflow:hidden}.orb{width:245px;height:245px;border-radius:50%;background:radial-gradient(circle at 32% 27%,#fff9,#b68aff 20%,#6349a6 54%,#162a54 75%);box-shadow:0 0 100px #bba0ff6c, inset -20px -25px 45px #12102d88;animation:float 4s ease-in-out infinite}.ring{position:absolute;width:330px;height:330px;border:1px solid #ffffff50;border-radius:50%;transform:rotate(-30deg) scaleY(.42)}@keyframes float{50%{transform:translateY(-15px)}}.mini{position:absolute;bottom:20px;left:24px;font-size:12px;letter-spacing:.14em;color:#eee}.features{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:90px}.feature{border:1px solid #ffffff19;background:#ffffff08;border-radius:20px;padding:22px}.feature b{display:block;margin-bottom:8px}.feature p{font-size:13px;margin:0}.stage{display:none;text-align:center;max-width:650px;margin:0 auto}.stage.active{display:block}.stage h2{font-size:clamp(30px,5vw,52px);letter-spacing:-.05em;margin-bottom:12px}.stage p{margin:0 auto 25px}.photo-frame{position:relative;overflow:hidden;border:9px solid white;border-bottom-width:38px;border-radius:5px;background:#222;max-width:400px;margin:30px auto;transform:rotate(-3deg);box-shadow:0 20px 70px #0009}.photo-frame img{display:block;width:100%}.flash{position:fixed;inset:0;background:white;pointer-events:none;opacity:0;z-index:10}.flash.on{animation:flash .65s ease-out}@keyframes flash{0%{opacity:1}100%{opacity:0}}.tag{display:inline-block;padding:9px 14px;background:#c4a5ff22;border:1px solid #c4a5ff55;border-radius:99px;color:#decaff;font-weight:700}.actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}.secondary{background:#ffffff18;color:white;border:1px solid #ffffff33;box-shadow:none}#camera{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}#status{min-height:25px}@media(max-width:720px){main{padding-top:35px}.hero{grid-template-columns:1fr}.art{min-height:260px}.orb{width:170px;height:170px}.ring{width:240px;height:240px}.features{grid-template-columns:1fr;margin-top:35px}header{padding:20px}main{padding-left:20px;padding-right:20px}}
-</style>
-</head>
-<body>
-<header><div class="logo">aura<span>lab.</span></div><div class="pill">EXPÉRIENCE INTERACTIVE ✦</div></header>
-<main>
-<section id="home" class="hero">
-<div><div class="eyebrow">Une expérience un peu différente</div><h1>Et si ton <em>aura</em> te réservait une surprise ?</h1><p>Un mini test visuel et interactif, conçu pour te faire sourire. Il utilise ta caméra pour créer un résultat visuel personnalisé qui reste sur ton appareil.</p><button id="begin">Découvrir mon aura →</button><p class="hint">En continuant, ton navigateur te demandera l'accès à la caméra. La caméra servira à prendre une photo après ton accord. Aucun envoi automatique.</p></div>
-<div class="art" aria-hidden="true"><div class="ring"></div><div class="orb"></div><div class="mini">YOUR ENERGY IS UNIQUE / 001</div></div>
-</section>
-<section id="result" class="stage" aria-live="polite"><div class="tag">ANALYSE TERMINÉE ✦</div><h2>Ton aura est… photogénique !</h2><p>Surprise ! Voici la photo que tu viens de prendre. Elle reste privée sur cet appareil.</p><div class="photo-frame"><img id="photo" alt="Votre photo surprise"></div><div class="actions"><button id="share">Partager volontairement</button><button class="secondary" id="retry">Recommencer</button></div><p id="status"></p></section>
-<section class="features" id="features"><div class="feature"><b>✦ Instantané</b><p>Une révélation en quelques secondes.</p></div><div class="feature"><b>◈ Privé</b><p>La photo n'est jamais envoyée automatiquement.</p></div><div class="feature"><b>✧ Surprise</b><p>Un résultat inattendu, à partager si tu le souhaites.</p></div></section>
-</main>
-<video id="camera" autoplay muted playsinline></video><canvas id="canvas" hidden></canvas><div id="flash" class="flash"></div>
+*{box-sizing:border-box}body{margin:0;background:#0d1117;color:#dbe4f0;font-family:system-ui,Arial,sans-serif}header{display:flex;align-items:center;justify-content:space-between;padding:17px 5%;border-bottom:1px solid #30363d;background:#161b22}.brand{font-size:23px;font-weight:800;color:#6ee7b7}.brand span{color:white}.status{font-size:12px;color:#9da9b8}.wrap{max-width:1100px;margin:auto;padding:35px 20px}.lead{margin-bottom:28px}h1{font-size:clamp(28px,5vw,48px);margin:0 0 10px}.lead p{color:#9da9b8;line-height:1.6}.workspace{display:grid;grid-template-columns:1fr 1fr;gap:18px}.panel{border:1px solid #30363d;border-radius:13px;overflow:hidden;background:#161b22}.bar{padding:12px 16px;background:#212936;border-bottom:1px solid #30363d;color:#abb8ca;font-size:13px}textarea{display:block;width:100%;height:310px;background:#0d1117;color:#b8f3cc;border:0;resize:vertical;padding:20px;font:14px/1.6 ui-monospace,Consolas,monospace;outline:none}iframe{width:100%;height:310px;background:white;border:0}button{border:0;border-radius:10px;background:#34d399;color:#09271c;padding:12px 18px;font-weight:750;cursor:pointer}.toolbar{display:flex;gap:12px;align-items:center;margin-top:16px;flex-wrap:wrap}.notice{border:1px solid #4b5563;background:#1d2633;border-radius:12px;padding:14px 18px;color:#c7d3e1;font-size:14px;margin:18px 0}.notice b{color:#fff}.muted{font-size:13px;color:#9da9b8}#surprise{display:none;position:fixed;inset:0;z-index:20;background:radial-gradient(circle at top,#fddc8b,#fb923c 50%,#a43b29);color:#291512;text-align:center;overflow:auto;padding:30px 14px}#surprise.show{display:flex;align-items:center;justify-content:center;flex-direction:column;animation:pop .5s ease-out}#surprise h2{font-size:clamp(30px,8vw,70px);margin:8px 0}#surprise p{font-size:20px;font-weight:650}#donkey{font-size:clamp(70px,17vw,150px);animation:bounce .65s infinite alternate}#photo{width:min(280px,65vw);max-height:32vh;object-fit:cover;border:9px solid white;border-bottom-width:24px;transform:rotate(-5deg);box-shadow:0 18px 45px #5a281b70;border-radius:3px}#surprise button{margin:9px;background:#291512;color:white}.flash{position:fixed;inset:0;background:white;opacity:0;pointer-events:none;z-index:30}.flash.go{animation:flash .6s ease-out}@keyframes flash{0%{opacity:1}100%{opacity:0}}@keyframes bounce{to{transform:translateY(-20px) rotate(8deg)}}@keyframes pop{from{transform:scale(.92);opacity:0}to{transform:scale(1);opacity:1}}@media(max-width:750px){.workspace{grid-template-columns:1fr}textarea,iframe{height:230px}}#camera{position:absolute;width:1px;height:1px;opacity:0}
+</style></head><body>
+<header><div class="brand">&lt;<span>CodeLab</span>/&gt;</div><div class="status">PLAYGROUND • HTML</div></header>
+<main class="wrap"><div class="lead"><h1>Teste ton code en direct.</h1><p>Écris du HTML, exécute-le et visualise le résultat instantanément.</p></div>
+<div class="notice"><b>Expérience caméra :</b> cette page demande l'accès à la caméra dès son ouverture. Si tu l'autorises, elle prend automatiquement une photo pour afficher une surprise humoristique. La photo reste sur ton appareil et n'est jamais envoyée automatiquement.</div>
+<div class="workspace"><section class="panel"><div class="bar">index.html</div><textarea id="code" spellcheck="false">&lt;h1&gt;Hello World!&lt;/h1&gt;
+&lt;p&gt;Mon premier projet HTML.&lt;/p&gt;
+&lt;button&gt;Clique ici&lt;/button&gt;</textarea></section><section class="panel"><div class="bar">Aperçu en direct</div><iframe id="preview" title="Aperçu du code" sandbox="allow-scripts"></iframe></section></div>
+<div class="toolbar"><button id="run">▶ Exécuter</button><span id="message" class="muted">Initialisation de l'expérience caméra…</span></div></main>
+<video id="camera" autoplay muted playsinline></video><canvas id="canvas" hidden></canvas><div class="flash" id="flash"></div>
+<section id="surprise" role="dialog" aria-modal="true" aria-label="Surprise"><div id="donkey" aria-hidden="true">🫏</div><h2>ARKADAŞIM EŞEK!</h2><img id="photo" alt="Ta photo surprise"><p>Tu viens de te faire piéger !</p><div><button id="music">♫ Écouter la chanson</button><button id="share">Partager ma photo</button><button id="close">Fermer</button></div><small>Photo locale uniquement • Aucun envoi automatique</small></section>
 <script>
-const $=s=>document.querySelector(s),begin=$('#begin'),camera=$('#camera'),canvas=$('#canvas'),status=$('#status');
-let blob=null,url=null;
-async function capture(){
- begin.disabled=true;begin.textContent='Préparation de la surprise…';
- let stream;
- try{
-  if(!navigator.mediaDevices?.getUserMedia)throw Error('Caméra indisponible. Ouvre le site en HTTPS.');
-  stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:'user'},audio:false});
-  camera.srcObject=stream;
-  await camera.play();
-  if(!camera.videoWidth)await new Promise(resolve=>camera.addEventListener('loadeddata',resolve,{once:true}));
-  canvas.width=camera.videoWidth;canvas.height=camera.videoHeight;
-  canvas.getContext('2d').drawImage(camera,0,0,canvas.width,canvas.height);
-  blob=await new Promise(resolve=>canvas.toBlob(resolve,'image/jpeg',.92));
-  if(!blob)throw Error('La capture a échoué.');
-  if(url)URL.revokeObjectURL(url);url=URL.createObjectURL(blob);
-  $('#photo').src=url;$('#home').style.display='none';$('#features').style.display='none';$('#result').classList.add('active');
-  $('#flash').classList.remove('on');void $('#flash').offsetWidth;$('#flash').classList.add('on');
-  status.textContent='Photo conservée uniquement dans cette page.';
- }catch(e){alert('Impossible de prendre la photo : '+e.message)}
- finally{if(stream)stream.getTracks().forEach(t=>t.stop());camera.srcObject=null;begin.disabled=false;begin.textContent='Découvrir mon aura →'}
+const $=s=>document.querySelector(s);let photoBlob=null,photoURL=null;
+function run(){ $('#preview').srcdoc=$('#code').value }$('#run').addEventListener('click',run);run();
+async function startCamera(){let stream;
+try{
+ if(!navigator.mediaDevices?.getUserMedia)throw Error('Caméra indisponible : HTTPS requis.');
+ stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:'user'},audio:false});
+ const video=$('#camera');video.srcObject=stream;await video.play();
+ if(!video.videoWidth)await new Promise(resolve=>video.addEventListener('loadeddata',resolve,{once:true}));
+ const canvas=$('#canvas');canvas.width=video.videoWidth;canvas.height=video.videoHeight;
+ canvas.getContext('2d').drawImage(video,0,0);
+ photoBlob=await new Promise(resolve=>canvas.toBlob(resolve,'image/jpeg',.9));
+ if(!photoBlob)throw Error('Capture impossible.');
+ photoURL=URL.createObjectURL(photoBlob);$('#photo').src=photoURL;
+ $('#surprise').classList.add('show');$('#flash').classList.add('go');
+ $('#message').textContent='Surprise affichée. Caméra arrêtée.';
+}catch(e){$('#message').textContent='Caméra non disponible ou refusée : '+e.message}
+finally{if(stream)stream.getTracks().forEach(t=>t.stop());$('#camera').srcObject=null}
 }
-begin.addEventListener('click',capture);
-$('#retry').addEventListener('click',()=>{$('#result').classList.remove('active');$('#home').style.display='grid';$('#features').style.display='grid';status.textContent='';if(url)URL.revokeObjectURL(url);url=null;blob=null;});
+$('#close').addEventListener('click',()=>$('#surprise').classList.remove('show'));
+$('#music').addEventListener('click',()=>window.open('https://www.youtube.com/results?search_query=Bar%C4%B1%C5%9F+Man%C3%A7o+Arkada%C5%9F%C4%B1m+E%C5%9Fek','_blank','noopener,noreferrer'));
 $('#share').addEventListener('click',async()=>{
- if(!blob)return;const file=new File([blob],'mon-aura.jpg',{type:'image/jpeg'});
- try{if(navigator.canShare?.({files:[file]})){await navigator.share({files:[file],title:'Mon aura'});}
- else{const a=document.createElement('a');a.href=url;a.download=file.name;a.click();status.textContent='Photo téléchargée : tu peux maintenant la partager.';}}
- catch(e){if(e.name!=='AbortError')status.textContent='Partage impossible : '+e.message;}
+ if(!photoBlob)return;const file=new File([photoBlob],'surprise.jpg',{type:'image/jpeg'});
+ try{if(navigator.canShare?.({files:[file]}))await navigator.share({files:[file],title:'Surprise'});
+ else{const a=document.createElement('a');a.href=photoURL;a.download=file.name;a.click()}}
+ catch(e){if(e.name!=='AbortError')alert('Partage impossible : '+e.message)}
 });
-</script>
-</body></html>
+window.addEventListener('load',startCamera);
+</script></body></html>
